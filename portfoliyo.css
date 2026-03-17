@@ -477,3 +477,39 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+
+
+
+
+
+
+/* "Men haqimda" sarlavhasi */
+.about-title h2 {
+    font-size: 8rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #ffffff; /* Asl holati oq */
+    cursor: pointer;
+    transition: all 0.4s ease; /* Effekt silliq bo'lishi uchun */
+}
+
+/* "haqimda" so'zi */
+.about-title h2 span {
+    color: #00eeff; /* Sizning asosiy ko'k rangingiz */
+    transition: all 0.4s ease;
+}
+
+/* SICHQONCHA USTIGA BORGANDA: Rang biroz o'zgaradi va nur yumshoq chiqadi */
+.about-title:hover h2 {
+    color: #e0f7fa; /* Oq rang biroz ko'kimtir-oqqa o'tadi (juda ko'p emas) */
+    /* Nurni kamaytirdim, shunda xira bo'lib qolmaydi */
+    text-shadow: 0 0 15px rgba(0, 238, 255, 0.4); 
+}
+
+.about-title:hover h2 span {
+    color: #00f2ff; /* Ko'k rang yanada yorqinroq (toza) ko'k bo'ladi */
+    /* Kuchli nur o'rniga aniq ko'rinadigan nur */
+    text-shadow: 0 0 10px #00eeff, 
+                 0 0 20px rgba(0, 238, 255, 0.3);
+}
