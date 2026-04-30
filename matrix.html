@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="matrix">
+    </canvas>
+<button id="toggleToolbar" onclick="toggleToolbar()">☰</button>
+<div id="toolbar" class="hidden">
+    <button onclick="togglePause()">Pause/Resume</button>
+    <button onclick="randomizeColor()">Random Color</button>
+    <button onclick="toggleCycleColor()">Cycle Color</button>
+    <input type="color" id="colorPicker" onchange="updateColor(this.value)">
+    <label>Delay: <span id="speedValue" class="slider-value">50</span>
+        <input type="range" id="speedSlider" min="10" max="200" value="50" oninput="updateSpeed(this.value)">
+    </label>
+    <label>Font Size: <span id="fontSizeValue" class="slider-value">16</span>
+        <input type="range" id="fontSizeSlider" min="8" max="32" value="16" oninput="updateFontSize(this.value)">
+    </label>
+    <label>Fade Speed: <span id="fadeSpeedValue" class="slider-value">0.05</span>
+        <input type="range" id="fadeSpeedSlider" min="0.01" max="0.2" step="0.01" value="0.05" oninput="updateFadeSpeed(this.value)">
+    </label>
+    <label>Horizontal Movement: <span id="horizontalValue" class="slider-value">0</span>
+        <input type="range" id="horizontalSlider" min="-10" max="10" value="0" step="0.1" oninput="updateHorizontalMovement(this.value)">
+    </label>
+    <label>Character Set:
+        <select id="charSetSelect" onchange="updateCharacterSet(this.value)">
+            <option value="bamum" selected>Bamum</option>
+            <option value="ascii">ASCII</option>
+            <option value="binary">Binary</option>
+            <option value="korean">Korean (Hangul)</option>
+            <option value="matrix">Matrix (Katakana + Latin + Nums)</option>
+        </select>
+    </label>
+    <button onclick="toggleFullscreen()">Toggle Fullscreen</button>
+    <button id="resetButton" onclick="resetToDefaults()">Reset to Defaults</button>
+</div>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <script src="script.js"></script>
+</body>
+</html>
