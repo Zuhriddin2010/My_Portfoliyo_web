@@ -1,46 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Matrix Rang Tanlagich bilan</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+        canvas {
+            display: block;
+        }
+        /* Rang tanlash paneli */
+        .controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            z-index: 100;
+        }
+        input[type="color"] {
+            cursor: pointer;
+            border: none;
+            width: 40px;
+            height: 40px;
+            background: none;
+        }
+    </style>
 </head>
 <body>
-    <canvas id="matrix">
-    </canvas>
-<button id="toggleToolbar" onclick="toggleToolbar()">☰</button>
-<div id="toolbar" class="hidden">
-    <button onclick="togglePause()">Pause/Resume</button>
-    <button onclick="randomizeColor()">Random Color</button>
-    <button onclick="toggleCycleColor()">Cycle Color</button>
-    <input type="color" id="colorPicker" onchange="updateColor(this.value)">
-    <label>Delay: <span id="speedValue" class="slider-value">50</span>
-        <input type="range" id="speedSlider" min="10" max="200" value="50" oninput="updateSpeed(this.value)">
-    </label>
-    <label>Font Size: <span id="fontSizeValue" class="slider-value">16</span>
-        <input type="range" id="fontSizeSlider" min="8" max="32" value="16" oninput="updateFontSize(this.value)">
-    </label>
-    <label>Fade Speed: <span id="fadeSpeedValue" class="slider-value">0.05</span>
-        <input type="range" id="fadeSpeedSlider" min="0.01" max="0.2" step="0.01" value="0.05" oninput="updateFadeSpeed(this.value)">
-    </label>
-    <label>Horizontal Movement: <span id="horizontalValue" class="slider-value">0</span>
-        <input type="range" id="horizontalSlider" min="-10" max="10" value="0" step="0.1" oninput="updateHorizontalMovement(this.value)">
-    </label>
-    <label>Character Set:
-        <select id="charSetSelect" onchange="updateCharacterSet(this.value)">
-            <option value="bamum" selected>Bamum</option>
-            <option value="ascii">ASCII</option>
-            <option value="binary">Binary</option>
-            <option value="korean">Korean (Hangul)</option>
-            <option value="matrix">Matrix (Katakana + Latin + Nums)</option>
-        </select>
-    </label>
-    <button onclick="toggleFullscreen()">Toggle Fullscreen</button>
-    <button id="resetButton" onclick="resetToDefaults()">Reset to Defaults</button>
-</div>, initial-scale=1.0">
-    <title>Document</title>
-</head>
-    <script src="script.js"></script>
+
+    <div class="controls">
+        <label for="colorPicker">Rangni tanlang: </label>
+        <input type="color" id="colorPicker" value="#ff00ff"> </div>
+
+    <canvas id="matrixCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        const colorPicker = document.getElementById('colorPicker');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const alphabet = "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const rainDrops = [];
+        for (let x = 0; x < columns; x++) {
+            rainDrops[x] = 1;
+        }
+
+        // Tanlangan rangni saqlash uchun o'zgaruvchi
+        let currentColor = colorPicker.value;
+
+        // Rang o'zgarganda uni ushlab olish
+        colorPicker.addEventListener('input', (e) => {
+            currentColor = e.target.value;
+        });
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Tanlangan rangni ishlatish
+            ctx.fillStyle = currentColor;
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        setInterval(draw, 30);
+    </script>
 </body>
 </html>
